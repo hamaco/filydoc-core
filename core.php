@@ -397,6 +397,8 @@ foreach($defaults as $key => $value){
 if($search_flag || preg_match('/\.md$/', $templateItem['realpath']) || $templateItem['type'] === 'dir'){
 	// 本文Markdown処理
 	$body = Michelf\MarkdownExtra::defaultTransform($text);
+	// テーブルの見た目が酷いのでとりあえず...
+	$body = str_replace('<table>', '<table class="table table-striped table-bordered">', $body);
 }
 elseif(preg_match('/\.(java|php)$/', $templateItem['realpath'], $m)){
 	$body = $text;
