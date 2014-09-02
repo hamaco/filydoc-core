@@ -288,7 +288,9 @@ function isAdminUser(){
 // -- -- 生テキスト取得 -- -- //
 // ディスパッチ処理
 // ※セキュリティ：リアルファイルにアクセスするため、ホスト内のpublic_html以外のファイルが参照されないように気を付けること
-parse_str($_SERVER['QUERY_STRING'], $query);
+if (isset($_SERVER['QUERY_STRING'])) {
+	parse_str($_SERVER['QUERY_STRING'], $query);
+}
 $templateItem = null;
 if($search_flag){
 	// 検索結果をmarkdown形式で取得
@@ -411,7 +413,7 @@ elseif(preg_match('/\.(java|php)$/', $templateItem['realpath'], $m)){
 
 	// Java色分け処理
 	require(APP_ROOT . '/php/libs/geshi/geshi.php');
-	$geshi =& new GeSHi($body, $m[1]); // java or php
+	$geshi = new GeSHi($body, $m[1]); // java or php
 	//$geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
 	$geshi->enable_keyword_links(false);
 
